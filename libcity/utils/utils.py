@@ -45,6 +45,7 @@ def get_model(config, data_feature):
             raise AttributeError('model is not found')
     elif config['task'] == 'traffic_state_pred':
         try:
+            print(config['model'])
             return getattr(importlib.import_module('libcity.model.traffic_flow_prediction'),
                            config['model'])(config, data_feature)
         except AttributeError:

@@ -16,7 +16,7 @@ if __name__ == '__main__':
     parser.add_argument('--model', type=str,
                         default='MHopGWNET', help='the name of model')
     parser.add_argument('--dataset', type=str,
-                        default='JiNan', help='the name of dataset')
+                        default='CHITaxi20190406', help='the name of dataset')
     parser.add_argument('--config_file', type=str,
                         default=None, help='the file name of config file')
     parser.add_argument('--saved_model', type=str2bool,
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     parser.add_argument('--seed', type=int, default=0, help='random seed')
 
     # setting of PoIGWNet
-    parser.add_argument('--ke_model', type=str, default="RotatE")  # transe: 200, distmult: 1024
+    parser.add_argument('--ke_model', type=str, default="TransE")  # transe: 200, distmult: 1024
     parser.add_argument('--ke_dim', type=int, default=200)  # transe: 200, distmult: 1024
     parser.add_argument('--max_hop', type=int, default=1)
 

@@ -275,7 +275,7 @@ class TrafficStateDataset(AbstractDataset):
         data = []
         for i in range(0, df.shape[0], len_time):
             data.append(df[i:i + len_time].values)
-        data = np.array(data, dtype=np.float)  # (len(self.geo_ids), len_time, feature_dim)
+        data = np.array(data, dtype=float)  # (len(self.geo_ids), len_time, feature_dim)
         data = data.swapaxes(0, 1)  # (len_time, len(self.geo_ids), feature_dim)
         self._logger.info("Loaded file " + filename + '.dyna' + ', shape=' + str(data.shape))
         return data

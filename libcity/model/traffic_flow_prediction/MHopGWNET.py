@@ -218,7 +218,9 @@ class MHopGWNET(AbstractTrafficStateModel):
         self.path_feat_path = 'kg_utils/path_feature/{}/{}_{}_{}hop.pkl'.format(
             self.dataset, self.ke_model, self.ke_dim, self.max_hop)
         with open(self.path_feat_path, mode='rb') as f:
+            print(111)
             origin_path_feats = pickle.load(f)
+        exit(0)
         self._logger.info('load path_feat from {}'.format(self.path_feat_path))
         max_path_len, self.mh_feat, self.mh_value_mask, self.mh_padding_mask, self.i1d_to_ij2d = \
             self.process_feats(origin_path_feats)  # 注意，value_mask与padding_mask的意义相反
