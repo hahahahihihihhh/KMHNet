@@ -217,20 +217,20 @@ class MHopGWNET(AbstractTrafficStateModel):
         # process path feat
         self.path_feat_path = 'kg_utils/path_feature/{}/{}_{}_{}hop.pkl'.format(
             self.dataset, self.ke_model, self.ke_dim, self.max_hop)
-        with open(self.path_feat_path, mode='rb') as f:
-            print(111)
-            origin_path_feats = pickle.load(f)
-        exit(0)
+        origin_path_feats = torch.randn((self.num_nodes, self.num_nodes, 1, 3 * self.ke_dim))           # after path feature fusion
+        # with open(self.path_feat_path, mode='rb') as f:
+        #     origin_path_feats = pickle.load(f)
+
         self._logger.info('load path_feat from {}'.format(self.path_feat_path))
         max_path_len, self.mh_feat, self.mh_value_mask, self.mh_padding_mask, self.i1d_to_ij2d = \
             self.process_feats(origin_path_feats)  # 注意，value_mask与padding_mask的意义相反
-
+        # print(max_path_len, self.mh_feat.shape, self.mh_value_mask.shape, self.mh_padding_mask.shape)
         # init mh_layers
         self.mh_feat_encoder = None
         # if self.mh_encoder_type == 'Attention':
         attn_layers = [PathAttention(embedding_dim=self.ke_dim, num_heads=self.attn_num_heads) for _ in range(self.attn_num_layers)]
         self.mh_feat_encoder = nn.Sequential(*attn_layers)
-        print(self.mh_feat_encoder)
+        # print(self.mh_feat_encoder)
         self.mh_score_layer = MHScoreLayer(max_path_len, self.ke_dim, self.num_nodes)
 
         self.apt_layer = config.get('apt_layer', True)
@@ -356,7 +356,7 @@ class MHopGWNET(AbstractTrafficStateModel):
                 if origin_path_feats[i][j] is not None:
                     zero_feat = torch.zeros((1, max_path_len, self.ke_dim))
                     one_mask = torch.zeros(1, max_path_len)
-                    value_feat = origin_path_feats[i][j].view(-1, self.ke_dim)
+                    value_feat = origin_path_feats[i][j].view(-1, self.ke_dim)      # path_len, self.ke_dim
                     zero_feat[:, :value_feat.shape[0]] = value_feat
                     one_mask[:, :value_feat.shape[0]] = False  # 将没有被 padding 的位置置为 0
                     padding_feat.append(zero_feat)
@@ -403,7 +403,7 @@ class MHopGWNET(AbstractTrafficStateModel):
             mh_score[i2d][j2d] = score[i1d]
 
         np.savetxt('MHop_Correlation.csv', mh_score.detach().cpu().numpy())
-        exit()
+
         new_supports += [mh_score]
 
         # new_supports += [self.eval_mh_score]

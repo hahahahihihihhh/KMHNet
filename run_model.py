@@ -29,8 +29,8 @@ if __name__ == '__main__':
 
     # setting of PoIGWNet
     parser.add_argument('--ke_model', type=str, default="TransE")  # transe: 200, distmult: 1024
-    parser.add_argument('--ke_dim', type=int, default=200)  # transe: 200, distmult: 1024
-    parser.add_argument('--max_hop', type=int, default=1)
+    parser.add_argument('--ke_dim', type=int, default=32)  # transe: 200, distmult: 1024
+    parser.add_argument('--max_hop', type=int, default=2)
 
     parser.add_argument('--kr', type=str2bool, default=False)
     parser.add_argument('--poi', type=str2bool, default=False)
