@@ -28,9 +28,9 @@ if __name__ == '__main__':
     parser.add_argument('--seed', type=int, default=0, help='random seed')
 
     # setting of PoIGWNet
-    parser.add_argument('--ke_model', type=str, default="TransE")  # transe: 200, distmult: 1024
+    parser.add_argument('--ke_model', type=str, default="GIE")  # transe: 200, distmult: 1024
     parser.add_argument('--ke_dim', type=int, default=32)  # transe: 200, distmult: 1024
-    parser.add_argument('--max_hop', type=int, default=2)
+    parser.add_argument('--max_hop', type=int, default=1)
 
     parser.add_argument('--kr', type=str2bool, default=False)
     parser.add_argument('--poi', type=str2bool, default=False)
